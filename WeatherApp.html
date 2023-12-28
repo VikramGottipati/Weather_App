@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #container{
+            background-color: gold;
+            
+        }
+        #container h1{
+            text-align: center;
+            color: white;
+            padding:10px ;
+        }
+        #input-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        #input-container input{
+            padding: 8px;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+
+        #input-container button{
+            padding: 10px;
+            border-radius: 10px;
+            background-color: gold;
+            color: white;
+            cursor: pointer;
+        }
+        #display{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            flex-direction: column;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>WeatherApp</h1>
+    </div>
+ 
+    <div id="input-container">
+    <input type="text" placeholder="Enter City Name" required id="input">
+    <button id="btn" onclick="getweather()">GetWeather</button>
+    </div>
+
+   <div id="display"></div>
+
+<script>
+    let div=document.getElementById("display");
+   function getweather(){
+    let inputvalue=document.getElementById("input").value;
+   let URL=`https://api.openweathermap.org/data/2.5/weather?q=${inputvalue}&appid=309dd5634d67c5db21a6a9f3e0e51215`
+   
+   fetch(URL).then(a=>{return a.json()}).then(a=>{
+    console.log(a);
+    let result=`<h1>${a.name}</h1> <br/> <h2>longitude is :- ${a.coord.lon}
+         lattitude is :- ${a.coord.lat}</h2> <br> <h2>${a.sys.country}</h2> <br/> 
+         <h2> city current weather is ${a.weather[0].description} and ${a.weather[0].main}</h2> 
+         <br> <h2> wind speed is ${a.wind.speed}</h2>`
+    div.innerHTML=result; 
+   })
+  
+
+   }
+</script>
+
+</body>
+</html>
